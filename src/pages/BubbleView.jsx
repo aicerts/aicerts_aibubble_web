@@ -1,17 +1,20 @@
 import { Box, Stack } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import HeaderTabs from '../components/HeaderTabs';
-import FooterTabs from '../components/FooterTabs';
-import BubbleManager from '../utils/BubbleManager';
-import '../components/style.css';
-import BubblePlot from '../components/BubblePlot';
+import HeaderTabs from '../components/layout/HeaderTabs';
+import BubblePlot from '../components/bubble-layout/BubblePlot';
+import FooterTabs from '../components/layout/FooterTabs';
+import ChartView from '../components/symbol-detail/ChartView';
+import useConfigStore from '../store/useConfigStore';
+import ListView from '../components/list-layout/ListView';
 
 const BubbleView = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState('min1');
+  const layout = useConfigStore((state) => state.layout);
   return (
     <Stack sx={{ p: 0, bgcolor: '#222222', height: '100%' }}>
-      <HeaderTabs selectedPeriod={selectedPeriod} setSelectedPeriod={setSelectedPeriod} />
-      <BubblePlot selectedPeriod={selectedPeriod} />
+      <HeaderTabs />
+      {layout === 'bubble' && <BubblePlot />}
+      {layout === 'list' && <ListView />}
+      {layout === 'settings' && <Box sx={{ flexGrow: 1, width: '100%' }} />}
+      <ChartView />
       <FooterTabs />
     </Stack>
   );

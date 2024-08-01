@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import './style.css';
-import BubbleManager from '../utils/BubbleManager';
-import useDataStore from '../store/useDataStore';
-import useConfigStore from '../store/useConfigStore';
+import BubbleManager from '../../utils/BubbleManager';
+import useDataStore from '../../store/useDataStore';
+import useConfigStore from '../../store/useConfigStore';
 
 const BubbleCanvas = () => {
   const [canvasManager, setCanvasManager] = useState();
   const currencies = useDataStore((state) => state.currencies);
-  const config = useConfigStore((state) => state);
+  const config = useConfigStore((state) => state.configuration);
+  const setSelectedCurrency = useDataStore((state) => state.setSelectedCurrency);
   const canvasContainerRef = useRef();
   useEffect(() => {
     if (canvasContainerRef.current) {
@@ -28,6 +28,7 @@ const BubbleCanvas = () => {
       setTimeout(() => {
         cM.pushCurrencies(currencies);
       }, 1000);
+      cM.eventSelect.register((currency) => setSelectedCurrency(currency));
       cM.wakeUp();
       cM.start();
     }

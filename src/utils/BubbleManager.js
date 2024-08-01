@@ -144,7 +144,7 @@ class BubbleManager extends CanvasManager {
         if (Date.now() - this.timePointerDown < 1000) {
           const { currency } = this.possibleSelectedBubble;
           this.possibleSelectedBubble = null;
-          this.eventSelect.fire(currency.id);
+          this.eventSelect.fire(currency);
         }
       }
       this.draggedBubble = null;

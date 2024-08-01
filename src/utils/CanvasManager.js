@@ -27,7 +27,7 @@ class CanvasManager {
 
     this.fillContainer = () => {
       this.nextContainerFill = Date.now() + 1000;
-      const clientWidth = this.container.clientWidth - 10;
+      const clientWidth = this.container.clientWidth;
       const clientHeight = this.container.clientHeight - 10;
       const pixelWidth = Math.floor(clientWidth * window.devicePixelRatio);
       const pixelHeight = Math.floor(clientHeight * window.devicePixelRatio);
