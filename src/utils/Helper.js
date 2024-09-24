@@ -89,10 +89,12 @@ class Helper {
         return Helper.calculateSize(currency.marketcap);
       case 'volume':
         return Helper.calculateSize(currency.volume);
+      case 'volumeWeekly':
+        return Helper.calculateSize(currency.volumeWeekly);
       case 'performance': {
         const performanceValue = Math.abs(currency.performance[period] || 0);
-        // return calculateSize(Math.min(1000, performanceValue));
-        return Helper.calculateSize(Helper.clamp(performanceValue, 0.01, 1000));
+        return Helper.calculateSize(Math.min(1000, performanceValue));
+        // return Helper.calculateSize(Helper.clamp(performanceValue, 0.01, 1000));
       }
       case 'rank-diff':
         return Helper.isValidRankDiffPeriod(period) ? Helper.calculateSize(Math.abs(currency.rankDiffs[period])) : 1;
@@ -118,10 +120,18 @@ class Helper {
     switch (contentTemplate) {
       case 'name':
         return currency.name;
+      case 'rank':
+        return currency.rank;
       case 'performance':
         return Helper.formatPercentage(currency.performance[period]);
+      case 'volume':
+        return Helper.formatPrice(currency.volume, baseCurrency);
+      case 'volumeWeekly':
+        return Helper.formatPrice(currency.volumeWeekly, baseCurrency);
+      case 'price':
+        return Helper.formatPrice(currency.price, baseCurrency);
       default:
-        return 'Content';
+        return '';
     }
   }
 

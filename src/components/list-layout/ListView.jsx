@@ -130,7 +130,8 @@ const StyledCell = styled(TableCell)(({ theme }) => ({
 }));
 const ListView = () => {
   const rows = useDataStore((state) => state.currencies);
-  const { currency, colorScheme } = useConfigStore((state) => state.configuration);
+  const currency = useConfigStore((state) => state.currency);
+  const colorScheme = useConfigStore((state) => state.colorScheme);
   const [sort, setSort] = useState();
   const [sortDirection, setSortDirection] = useState('dsc');
   const [sortedRows, setSortedRows] = useState(rows);
@@ -178,7 +179,7 @@ const ListView = () => {
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>
       <Paper sx={{ width: '100%', overflow: 'hidden', background: 'transparent', boxShadow: 'none' }}>
-        <TableContainer sx={{ maxHeight: 'calc(100vh - 70px)', marginTop: '2px' }}>
+        <TableContainer sx={{ maxHeight: 'calc(100vh - 120px)', marginTop: '2px' }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>

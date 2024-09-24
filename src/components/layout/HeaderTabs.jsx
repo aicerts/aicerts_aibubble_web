@@ -6,51 +6,60 @@ import HeaderProgress from './HeaderProgress';
 import useConfigStore from '../../store/useConfigStore';
 import useDataStore from '../../store/useDataStore';
 import Helper from '../../utils/Helper';
+import Constant from '../../utils/Constant';
 
 const HeaderTabs = () => {
   const config = useConfigStore((state) => state.configuration);
+  const setConfig = useConfigStore((state) => state.setConfig);
   const layout = useConfigStore((state) => state.layout);
   const updateConfig = useConfigStore((state) => state.setConfig);
   const currencies = useDataStore((state) => state.currencies);
+  const setEditConfig = useConfigStore((state) => state.setEditConfig);
+  const allConfigs = useConfigStore((state) => state.allConfigs);
+  const updateAllConfig = useConfigStore((state) => state.updateAllConfigs);
 
-  const calculateVarient = (period) => {
-    const weight = Helper.calculateConfigurationWeight({ ...config, period }, currencies);
+  const calculateVarient = (item) => {
+    const weight = Helper.calculateConfigurationWeight(item, currencies);
     if (weight > 0) {
-      return 'green';
+      return 'buy';
     }
     if (weight < 0) {
-      return 'red';
+      return 'sell';
     }
     return 'neutral';
   };
 
+  const handleAddConfig = () => {
+    const item = { ...Constant.DEFAULT_CONFIGS[0] };
+    item.period = 'min1';
+    item.id = Date.now();
+    allConfigs.push(item);
+    updateAllConfig(allConfigs);
+    setConfig(item);
+    setEditConfig(true);
+  };
+
   return (
-    <Stack direction="row">
+    <Stack direction="row" position="relative">
       <HeaderProgress />
       {layout === 'bubble' && (
         <>
           <StyledTabs
             variant="scrollable"
-            value={config.period}
-            onChange={(e, val) => updateConfig({ period: val })}
-            sx={{ flexGrow: '1' }}
+            value={config.id}
+            onChange={(e, val) => updateConfig(allConfigs.find((item) => val === item.id))}
             scrollButtons={false}>
-            <StyledTab variant={calculateVarient('min1')} label="1min" value="min1" />
-            <StyledTab variant={calculateVarient('min5')} label="5min" value="min5" />
-            <StyledTab variant={calculateVarient('min15')} label="15min" value="min15" />
-            <StyledTab variant={calculateVarient('hour')} label="Hour" value="hour" />
-            <StyledTab variant={calculateVarient('day')} label="Day" value="day" />
-            <StyledTab variant={calculateVarient('week')} label="Week" value="week" />
-            {/* <StyledTab variant="green" label="Market Cap & Week" />
-        <StyledTab variant="red" label="Market Cap & Month" /> */}
+            {allConfigs.map((item) => {
+              return <StyledTab key={item.id} variant={calculateVarient(item)} label={item.name || Constant.renderLabel(item)} value={item.id} />;
+            })}
           </StyledTabs>
           <Box p={1}>
-            <StyledIconButton>
+            <StyledIconButton onClick={() => setEditConfig(true)}>
               <Edit />
             </StyledIconButton>
           </Box>
           <Box p={1}>
-            <StyledIconButton>
+            <StyledIconButton onClick={() => handleAddConfig()}>
               <Add />
             </StyledIconButton>
           </Box>

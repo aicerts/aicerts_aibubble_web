@@ -6,6 +6,7 @@ import useDataStore from '../../store/useDataStore';
 
 const HeaderProgress = () => {
   const config = useConfigStore((state) => state.configuration);
+  const colorScheme = useConfigStore((state) => state.colorScheme);
   const currencies = useDataStore((state) => state.currencies);
   const setCurrencies = useDataStore((state) => state.setCurrencies);
   const setLoading = useDataStore((state) => state.setLoading);
@@ -15,7 +16,7 @@ const HeaderProgress = () => {
   const requestRef = useRef();
 
   const apiCall = async () => {
-    const req = await fetch('https://ai-bubbles-web.appdevelop.in/api/v1/marketstack/data');
+    const req = await fetch('https://bubble.appdevelop.in/api/stocks/data');
     const data = await req.json();
     setCurrencies(data);
   };
@@ -54,13 +55,8 @@ const HeaderProgress = () => {
 
   const calculateVarient = () => {
     const weight = Helper.calculateConfigurationWeight(config, currencies);
-    if (weight > 0) {
-      return '#3f3';
-    }
-    if (weight < 0) {
-      return '#f66';
-    }
-    return '#07d';
+    if (weight === 0) return '#07d';
+    return Helper.getPrimaryColor(weight, colorScheme);
   };
   return (
     <LinearProgress

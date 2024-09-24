@@ -1,15 +1,12 @@
 import { Box, Typography } from '@mui/material';
-import { Add } from '@mui/icons-material';
-import StyledIconButton from '../../ui/overrides/IconButton';
 import useDataStore from '../../store/useDataStore';
+import WishlistAdd from '../symbol-detail/WishlistAdd';
 
 const SymbolName = ({ symbol }) => {
   const setSelectedCurrency = useDataStore((state) => state.setSelectedCurrency);
   return (
-    <Box display="flex" alignItems="center" gap={1}>
-      <StyledIconButton>
-        <Add />
-      </StyledIconButton>
+    <Box display="flex" alignItems="center" gap={0}>
+      <WishlistAdd symbol={symbol} />
       <Box
         display="flex"
         alignItems="center"

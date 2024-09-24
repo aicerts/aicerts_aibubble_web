@@ -32,7 +32,7 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Verdana, Arial'
+    fontFamily: 'Verdana, sans-serif'
   },
   components: {
     MuiAppBar: {

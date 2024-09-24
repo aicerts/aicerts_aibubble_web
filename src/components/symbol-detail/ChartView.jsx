@@ -1,6 +1,6 @@
 import { Box, Dialog, DialogContent, DialogTitle, Slide } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { Close, KeyboardArrowDown } from '@mui/icons-material';
+import { Add, Close, KeyboardArrowDown } from '@mui/icons-material';
 import StyledIconButton from '../../ui/overrides/IconButton';
 import useDataStore from '../../store/useDataStore';
 import ChartCanvas from './ChartCanvas';
@@ -8,6 +8,7 @@ import PriceCalculator from '../common/PriceCalulator';
 import CurrencyPerformanceGrid from './CurrencyPerformanceGrid';
 import TradeLinks from './TradeLinks';
 import SymbolInfo from './SymbolInfo';
+import WishlistAdd from './WishlistAdd';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -25,7 +26,7 @@ const ChartView = () => {
   const fetchData = async () => {
     setQuotes(null);
     setIsLoading(true);
-    const response = await fetch(`https://ai-bubbles-web.appdevelop.in/api/v1/marketstack/chart/${selectedCurrency.symbol}/${period}`); // await fetch(`https://api.npoint.io/898c9b0216b7ba2385b1`);
+    const response = await fetch(`https://bubble.appdevelop.in/api/stocks/chart/${selectedCurrency.symbol}/${period}`); // await fetch(`https://api.npoint.io/898c9b0216b7ba2385b1`);
     const json = await response.json();
     setQuotes(json);
     setIsLoading(false);
@@ -50,9 +51,10 @@ const ChartView = () => {
         <>
           <DialogTitle typography="body1" display="flex" justifyContent="space-between" color="white" sx={{ padding: 1 }}>
             <Box display="flex" alignItems="center">
-              <StyledIconButton onClick={() => setExpanded(!expanded)} sx={{ mr: 2 }}>
+              <StyledIconButton onClick={() => setExpanded(!expanded)} sx={{ mr: 1 }}>
                 <KeyboardArrowDown sx={{ transition: 'all 0.2s', transform: expanded ? '' : 'rotateZ(-90deg)' }} />
               </StyledIconButton>
+              <WishlistAdd symbol={selectedCurrency} />
               <img src={selectedCurrency.image} height={20} width={20} alt={selectedCurrency.symbol} style={{ marginRight: '10px' }} />
               {selectedCurrency.name}
             </Box>

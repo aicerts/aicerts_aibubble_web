@@ -1,10 +1,11 @@
+import useConfigStore from '../store/useConfigStore';
 import Canvas from './Canvas';
 import ImageManager from './ImageManager';
 import Tween from './Tween';
 
 const Constants = {
   bubblePadding: 10,
-  bubbleBorder: 2,
+  bubbleBorder: 3,
   bubbleHitbox: 10
 };
 
@@ -65,7 +66,7 @@ class Bubble {
   rerender(radius) {
     const image = this.lazyImage();
     const roundedRadius = Math.round(radius);
-    const shouldRenderBorder = this.renderFavoriteBorder && false;
+    const shouldRenderBorder = this.renderFavoriteBorder && useConfigStore.getState().favorites.includes(this.currency.id);
     const fingerprint = `${this.color} ${roundedRadius} ${this.content} ${Boolean(image)} ${shouldRenderBorder}`;
 
     if (fingerprint !== this.lastFingerprint) {

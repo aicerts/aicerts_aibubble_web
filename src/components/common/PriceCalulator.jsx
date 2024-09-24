@@ -14,17 +14,26 @@ const PriceCalculator = ({ selectedCurrency }) => {
       <StyledTextField
         type="number"
         InputProps={{ startAdornment: <Edit /> }}
+        // eslint-disable-next-line react/jsx-no-duplicate-props
+        inputProps={{ style: { textAlign: 'center' } }}
         placeholder="Amount"
         value={value}
-        sx={{ maxWidth: 120 }}
+        sx={{ maxWidth: 140, minWidth: 80 }}
         onChange={(event) => setValue(event.target.value)}
       />
       <Typography typography="h6" fontWeight="500" ml={1} sx={{ color: '#ccc', textWrap: 'nowrap' }}>
         {selectedCurrency.symbol} =
       </Typography>
-      <Typography typography="h6" fontWeight="500" ml={1} sx={{ color: 'white' }}>
-        <NumberComponent value={selectedCurrency.price * Number(value)} />
-      </Typography>
+      <Box sx={{ maxWidth: 130 }}>
+        <Typography
+          typography="h6"
+          fontWeight="500"
+          textOverflow="ellipsis"
+          ml={1}
+          sx={{ color: 'white', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <NumberComponent value={selectedCurrency.price * Number(value)} />
+        </Typography>
+      </Box>
     </Box>
   );
 };

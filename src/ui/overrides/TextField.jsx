@@ -7,11 +7,10 @@ const StyledTextField = styled(TextField)({
     color: 'white',
     borderRadius: '12px',
     input: {
-      padding: '5px',
-      textAlign: 'center'
+      padding: '5px'
     },
     '& fieldset': {
-      borderColor: '#ccc'
+      borderColor: '#ffffff4d'
     },
     '&:hover fieldset': {
       borderColor: '#B2BAC2'
