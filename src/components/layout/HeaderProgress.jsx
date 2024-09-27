@@ -16,7 +16,7 @@ const HeaderProgress = () => {
   const requestRef = useRef();
 
   const apiCall = async () => {
-    const req = await fetch('https://bubble.appdevelop.in/api/stocks/data');
+    const req = await fetch(`${process.env.REACT_APP_API_URL}/api/stocks/data`); // https://bubble.appdevelop.in/api/stocks/data
     const data = await req.json();
     setCurrencies(data);
   };

@@ -26,7 +26,7 @@ const ChartView = () => {
   const fetchData = async () => {
     setQuotes(null);
     setIsLoading(true);
-    const response = await fetch(`https://bubble.appdevelop.in/api/stocks/chart/${selectedCurrency.symbol}/${period}`); // await fetch(`https://api.npoint.io/898c9b0216b7ba2385b1`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/stocks/chart/${selectedCurrency.symbol}/${period}`); // await fetch(`https://api.npoint.io/898c9b0216b7ba2385b1`);
     const json = await response.json();
     setQuotes(json);
     setIsLoading(false);
