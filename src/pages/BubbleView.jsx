@@ -33,7 +33,7 @@ const BubbleView = () => {
   }, [config]);
   return (
     <Stack sx={{ p: 0, bgcolor: '#222222', height: '100vh' }}>
-      <Header />
+      {/* <Header /> */}
       <HeaderTabs />
       {layout === 'bubble' && <BubblePlot webviewLoading={webviewLoading} />}
       {layout === 'list' && <ListView />}

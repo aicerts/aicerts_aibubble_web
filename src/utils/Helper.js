@@ -186,10 +186,11 @@ class Helper {
     const weight = Helper.calculateConfigurationWeight(config, data);
     const primary = Helper.getPrimaryColor(weight);
     const secondary = Helper.getSecondaryColor(weight);
-    console.log(primary, secondary);
+ 
   }
 
   static formatPrice(value, currency) {
+
     let amount = value;
     if (amount < 0) {
       amount = 0;
@@ -229,6 +230,21 @@ class Helper {
       formatOptions.currencyDisplay = 'symbol';
       return amount.toLocaleString(undefined, formatOptions);
     }
+  }
+
+
+  
+  static handleResize(callback){
+    const resizeHandler = () => {
+      callback(window.innerWidth <= 768);
+    };
+
+    resizeHandler()
+    window.addEventListener('resize', resizeHandler);
+
+    return () => {
+      window.removeEventListener('resize', resizeHandler);
+    };
   }
 }
 

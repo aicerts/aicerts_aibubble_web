@@ -27,6 +27,7 @@ class Bubble {
     this.renderFavoriteBorder = true; // Flag to render favorite border
     this.currency = currency; // Currency data associated with the bubble
     this.canvas = new Canvas(Constants.bubblePadding); // Canvas for rendering
+    console.log(currency)
     this.lazyImage = ImageManager.get(currency.image); // Lazy-loaded image
   }
 

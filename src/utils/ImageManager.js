@@ -2,6 +2,7 @@
 class ImageLoader {
   // Static method to retrieve images
   static get(url) {
+    console.log("url is", url)
     // Check if the image is already cached
     let cachedImage = this.cache[url];
 
