@@ -135,7 +135,6 @@ const ListView = () => {
   const [sort, setSort] = useState();
   const [sortDirection, setSortDirection] = useState('dsc');
   const [sortedRows, setSortedRows] = useState(rows);
-
   useEffect(() => {
     const sorted = [...rows];
     if (sort) {

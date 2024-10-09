@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: 5174, // Replace 3001 with your desired port number
+      host:true
     },
   }
 });

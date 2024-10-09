@@ -8,9 +8,9 @@ import useDataStore from '../../store/useDataStore';
 import Helper from '../../utils/Helper';
 import Constant from '../../utils/Constant';
 import { useEffect, useRef, useState } from 'react';
-import ConfigurationDialog from './ConfigurationDialog'
-import icon from "../../assets/images/icon.png"
-import logo from "../../assets/images/logo.png"
+import ConfigurationDialog from './ConfigurationDialog';
+import icon from "../../assets/images/icon.png";
+import logo from "../../assets/images/logo.png";
 import StyledTextField from '../../ui/overrides/TextField';
 
 const HeaderTabs = () => {
@@ -44,7 +44,7 @@ const HeaderTabs = () => {
   useEffect(() => {
     const cleanup = Helper.handleResize(setIsMobile);
 
-    return cleanup; 
+    return cleanup;
   }, []);
 
   useEffect(() => {
@@ -79,62 +79,55 @@ const HeaderTabs = () => {
 
   return (
     <Stack direction="row"  >
-    <HeaderProgress />
-    {layout === 'bubble' && (
-      <>
-      <img 
-          className="ml-2" 
-          src={isMobile ? icon : logo} 
-          alt="Brand Image" 
-          style={{ height: 40 }} 
-        />
-    {/* <StyledTabs
-          variant="scrollable"
-          value={config.period}
-          onChange={(e, val) => updateConfig({ period: val })}
-          sx={{ flexGrow: '1' }}
-          scrollButtons={false}>
-    
-      <StyledTab variant={calculateVarient('min1')} label="1min" value="min1" />
-      <StyledTab variant={calculateVarient('min5')} label="5min" value="min5" />
-      <StyledTab variant={calculateVarient('min15')} label="15min" value="min15" />
-      <StyledTab variant={calculateVarient('hour')} label="Hour" value="hour" />
-      <StyledTab variant={calculateVarient('day')} label="Day" value="day" />
-      <StyledTab variant={calculateVarient('week')} label="Week" value="week" />
-      <StyledTab variant={calculateVarient('month')} label="Month" value="month" />
-      <StyledTab variant={calculateVarient('year')} label="Year" value="year" />
-    </StyledTabs> */}
-    <StyledTabs
-          variant="scrollable"
-          value={config.id}
-          onChange={(e, val) => updateConfig(allConfigs.find((item) => val === item.id))}
-          scrollButtons={false}>
-          {allConfigs.map((item) => {
-            return <StyledTab key={item.id} variant={calculateVarient(item)} label={item.name || Constant.renderLabel(item)} value={item.id} />;
-          })}
-        </StyledTabs>
-    </>
-    )}
-     <Box p={1}>
+      <HeaderProgress />
+      {layout === 'bubble' && (
+        <>
+        <img 
+            className="ml-2" 
+            src={isMobile ? icon : logo} 
+            alt="Brand Image" 
+            style={{ height: 40 }} 
+          />
+      <StyledTabs
+            variant="scrollable"
+            value={config.id}
+            onChange={(e, val) => updateConfig(allConfigs.find((item) => val === item.id))}
+            scrollButtons={false}
+            sx={{
+              visibility: searchEnabled && isMobile ? 'hidden' : 'visible',
+              width: searchEnabled && isMobile ? '0%' : 'auto', 
+            }}
+          >
+            {allConfigs.map((item) => {
+              return <StyledTab key={item.id} variant={calculateVarient(item)} label={item.name || Constant.renderLabel(item)} value={item.id} />;
+            })}
+          </StyledTabs>
+      </>
+      )}
+      <Box p={1}>
           <StyledIconButton onClick={() => setEditConfig(true)}>
             <Edit />
           </StyledIconButton>
-        </Box>
-        <Box p={1}>
+      </Box>
+      <Box p={1}>
           <StyledIconButton onClick={() => handleAddConfig()}>
             <Add />
           </StyledIconButton>
-        </Box>
-     <Box p={1}>
+      </Box>
+      <Box p={1}>
         {!searchEnabled && (
           <StyledIconButton onClick={() => setSearchEnabled(true)}>
             <Search />
           </StyledIconButton>
         )}
       </Box>
+      
       {searchEnabled && (
         <ClickAwayListener onClickAway={() => handleClose()}>
-          <Box width="30%" position="relative">
+          <Box
+            width={isMobile ? '70%' : '30%'} // 70% width on mobile view
+            position="relative"
+          >
             <StyledTextField
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -199,7 +192,7 @@ const HeaderTabs = () => {
         </ClickAwayListener>
       )}
       <ConfigurationDialog/>
-  </Stack>
+    </Stack>
   );
 };
 
