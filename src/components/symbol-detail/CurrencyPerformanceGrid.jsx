@@ -53,25 +53,31 @@ const SecondText = ({ value }) => {
 const CurrencyPerformanceGrid = ({ symbol, period, setPeriod }) => {
   return (
     <Grid container p={1} columnSpacing={1}>
-      <Grid item xs={3}>
+      <Grid item xs={2}>
         <BoxItem onClick={() => setPeriod('hour')} selected={period === 'hour'}>
           <FirstText text="Hour" value={symbol.performance.hour} selected={period === 'hour'} />
           <SecondText value={symbol.performance.hour} />
         </BoxItem>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={2.5}>
         <BoxItem onClick={() => setPeriod('day')} selected={period === 'day'}>
           <FirstText text="Day" value={symbol.performance.day} selected={period === 'day'} />
           <SecondText value={symbol.performance.day} />
         </BoxItem>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={2.5}>
         <BoxItem onClick={() => setPeriod('week')} selected={period === 'week'}>
           <FirstText text="Week" value={symbol.performance.week} selected={period === 'week'} />
           <SecondText value={symbol.performance.week} />
         </BoxItem>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={2.5}>
+        <BoxItem onClick={() => setPeriod('month')} selected={period === 'month'}>
+          <FirstText text="month" value={symbol.performance.week} selected={period === 'month'} />
+          <SecondText value={symbol.performance.month} />
+        </BoxItem>
+      </Grid>
+      <Grid item xs={2.5}>
         <BoxItem onClick={() => setPeriod('year')} selected={period === 'year'}>
           <FirstText text="Year" value={symbol.performance.year} selected={period === 'year'} />
           <SecondText value={symbol.performance.year} />

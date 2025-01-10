@@ -69,7 +69,7 @@ const HeaderTabs = () => {
 
   const handleAddConfig = () => {
     const item = { ...Constant.DEFAULT_CONFIGS[0] };
-    item.period = 'min1';
+    item.period = 'min15';
     item.id = Date.now();
     allConfigs.push(item);
     updateAllConfig(allConfigs);

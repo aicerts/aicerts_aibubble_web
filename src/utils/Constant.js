@@ -1,12 +1,12 @@
 const PERIODS = [
-  {
-    label: '1 min',
-    value: 'min1'
-  },
-  {
-    label: '5 min',
-    value: 'min5'
-  },
+  // {
+  //   label: '1 min',
+  //   value: 'min1'
+  // },
+  // {
+  //   label: '5 min',
+  //   value: 'min5'
+  // },
   {
     label: '15 min',
     value: 'min15'
