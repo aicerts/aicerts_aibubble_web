@@ -1,4 +1,4 @@
-import { Box, Grow, Stack, Typography } from '@mui/material';
+import { Box, Grow, Stack, Tooltip, Typography } from '@mui/material';
 import { Block, KeyboardArrowDown, RemoveRedEye, Reorder, SettingsSuggest, Star, Workspaces } from '@mui/icons-material';
 import { useState } from 'react';
 import StyledButton from '../../ui/overrides/Button';
@@ -124,9 +124,26 @@ const FooterTabs = () => {
 
         <Box mr={1}>
           <StyledIconTabs value={layout} onChange={(e, val) => setLayout(val)} sx={{ flexGrow: '1' }}>
-            <StyledIconTab value="bubble" icon={<Workspaces />} />
-            <StyledIconTab value="list" icon={<Reorder />} />
-            <StyledIconTab value="settings" icon={<SettingsSuggest />} />
+         
+          <StyledIconTab value="bubble" icon={
+             <Tooltip title="Bubble View" arrow>
+            <Workspaces />
+            </Tooltip>} />
+         
+           
+            <StyledIconTab value="list" icon={
+              <Tooltip title="List View" arrow>
+                 <Reorder />
+
+              </Tooltip>
+             } />
+            <StyledIconTab value="settings" icon={
+               <Tooltip title="Setting" arrow>
+                    <SettingsSuggest />
+
+               </Tooltip>
+              
+          } />
           </StyledIconTabs>
         </Box>
       </Stack>
