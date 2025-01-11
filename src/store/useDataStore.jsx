@@ -8,7 +8,10 @@ const useDataStore = create((set) => ({
   loading: true,
   setLoading: (value) => set({ loading: value }),
   filter: { type: 'all', id: null },
-  updateFilter: (filter) => set({ filter })
+  updateFilter: (filter) => set({ filter }),
+   // Add isMobile state
+   isMobile: false,
+   setIsMobile: (isMobile) => set({ isMobile }),
 }));
 
 export default useDataStore;

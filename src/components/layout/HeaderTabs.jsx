@@ -12,6 +12,7 @@ import ConfigurationDialog from './ConfigurationDialog';
 import icon from "../../assets/images/icon.png";
 import logo from "../../assets/images/logo.png";
 import StyledTextField from '../../ui/overrides/TextField';
+import Scrollbar from 'react-scrollbars-custom';
 
 const HeaderTabs = () => {
   const config = useConfigStore((state) => state.configuration);
@@ -52,12 +53,14 @@ const HeaderTabs = () => {
       const filter = symbols.filter(
         (item) => item.symbol.toLowerCase().includes(searchTerm.toLowerCase()) || item.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      
+
       setFilteredSymbols(filter);
     } else {
       setFilteredSymbols(symbols);
     }
-  }, [searchTerm, symbols]);
+  }, [searchTerm]);
+
+  
   
   const handleClose = (currency) => {
     setSearchEnabled(false);
@@ -78,17 +81,45 @@ const HeaderTabs = () => {
   };
 
   return (
-    <Stack direction="row"  >
+    <Stack direction="row"  
+    height={isMobile ? '60px' : '70px'}
+    gap={isMobile ? 1 : 2}>  
       <HeaderProgress />
       {layout === 'bubble' && (
+       
         <>
-        <img 
+          <Box width={"150px"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+          <img 
             className="ml-2" 
             src={isMobile ? icon : logo} 
             alt="Brand Image" 
-            style={{ height: 40 }} 
+           
+            style={{ height: 40,}} 
           />
-      <StyledTabs
+          
+          </Box>
+          <Scrollbar
+            style={{ height: '100%', display: 'flex', justifyContent: 'center' }} // Ensure it spans horizontally
+            noScrollY // Disable vertical scrolling
+            thumbXProps={{
+              renderer: (props) => {
+                const { elementRef, ...restProps } = props;
+                return (
+                  <div
+                    {...restProps}
+                    ref={elementRef}
+                    style={{
+                      backgroundColor: '#CFA935', // Thumb color
+                      borderRadius: '8px', // Rounded corners
+                      height: '5px', // Thumb height
+                      cursor: 'grab'
+                    }}
+                  />
+                );
+              }
+            }}>
+               <div style={{ display: 'flex', width: 'max-content', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+               <StyledTabs
             variant="scrollable"
             value={config.id}
             onChange={(e, val) => updateConfig(allConfigs.find((item) => val === item.id))}
@@ -102,6 +133,13 @@ const HeaderTabs = () => {
               return <StyledTab key={item.id} variant={calculateVarient(item)} label={item.name || Constant.renderLabel(item)} value={item.id} />;
             })}
           </StyledTabs>
+
+               </div>
+
+
+            </Scrollbar>
+       
+   
       </>
       )}
       <Box p={1}>
@@ -138,7 +176,7 @@ const HeaderTabs = () => {
               InputProps={{ startAdornment: <Search /> }}
             />
 
-            <Grow in={searchEnabled}>
+            <Grow in={isMobile ? searchEnabled : searchTerm !== ''}>
               <Box
                 sx={{
                   position: 'absolute',

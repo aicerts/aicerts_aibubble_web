@@ -135,8 +135,34 @@ const ListView = () => {
   const [sort, setSort] = useState();
   const [sortDirection, setSortDirection] = useState('dsc');
   const [sortedRows, setSortedRows] = useState(rows);
+  const [filteredRows, setFilteredRows] = useState([]);
+  const filter = useDataStore((state) => state.filter);
+  const favorites = useConfigStore((state) => state.favorites);
+  const blocklist = useConfigStore((state) => state.blocklist);
+  const watchlists = useConfigStore((state) => state.watchlists);
+  const isLoading = useDataStore((state) => state.loading);
+
+
   useEffect(() => {
-    const sorted = [...rows];
+    let filtered = [];
+    if (filter.type === 'all') {
+      filtered = rows.filter((item) => !blocklist.includes(item.id));
+    } else if (filter.type === 'favorite') {
+      filtered = rows.filter((item) => favorites.includes(item.id));
+    } else if (filter.type === 'blocklist') {
+      filtered = rows.filter((item) => blocklist.includes(item.id));
+    } else if (filter.type === 'watchlist' && filter.id) {
+      const wt = watchlists.find((item) => item.id === filter.id);
+      filtered = rows.filter((item) => wt.symbols.includes(item.id));
+    }
+    setFilteredRows(filtered);
+  }, [rows, favorites, filter, blocklist, watchlists]);
+
+
+
+
+  useEffect(() => {
+    const sorted = [...filteredRows];
     if (sort) {
       if (sort === 'rank') {
         sorted.sort((a, b) => (sortDirection === 'asc' ? a.rank - b.rank : b.rank - a.rank));
@@ -159,7 +185,7 @@ const ListView = () => {
       }
     }
     setSortedRows(sorted);
-  }, [sort, sortDirection]);
+  }, [sort, sortDirection, filteredRows]);
 
   const updateSort = (id) => {
     if (sort === id) {
